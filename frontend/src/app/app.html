@@ -1,0 +1,32 @@
+<div class="min-h-full bg-gray-50 text-gray-900">
+  <header class="border-b border-gray-200 bg-white">
+    <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
+      <a routerLink="/companies" class="text-lg font-bold text-indigo-700">Verus Companies</a>
+      <nav class="flex gap-1 text-sm">
+        <a
+          routerLink="/companies"
+          routerLinkActive="bg-indigo-50 text-indigo-700"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="rounded-md px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+          >All companies</a
+        >
+        <a
+          routerLink="/companies/search"
+          routerLinkActive="bg-indigo-50 text-indigo-700"
+          class="rounded-md px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+          >Search</a
+        >
+        <a
+          routerLink="/companies/new"
+          routerLinkActive="bg-indigo-50 text-indigo-700"
+          class="rounded-md px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+          >Add company</a
+        >
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-3xl px-4 py-8">
+    <router-outlet />
+  </main>
+</div>

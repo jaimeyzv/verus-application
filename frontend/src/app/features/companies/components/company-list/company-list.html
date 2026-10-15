@@ -1,0 +1,45 @@
+<section class="rounded-lg border border-gray-200 bg-white shadow-sm">
+  <header class="border-b border-gray-200 px-5 py-4">
+    <h2 class="text-lg font-semibold text-gray-900">Companies</h2>
+    <p class="text-sm text-gray-500">{{ companies().length }} shown</p>
+  </header>
+
+  @if (loading()) {
+    <p class="px-5 py-8 text-center text-sm text-gray-500">Loading companies…</p>
+  } @else if (companies().length === 0) {
+    <p class="px-5 py-8 text-center text-sm text-gray-500">{{ emptyMessage() }}</p>
+  } @else {
+    <table class="w-full text-left text-sm">
+      <thead class="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+        <tr>
+          <th scope="col" class="px-5 py-3 font-medium">Name</th>
+          <th scope="col" class="px-5 py-3 font-medium">Website</th>
+          <th scope="col" class="px-5 py-3 font-medium">Domain</th>
+          <th scope="col" class="px-5 py-3 font-medium">Added</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (company of companies(); track company.id) {
+          <tr class="hover:bg-gray-50">
+            <td class="px-5 py-3 font-medium">
+              <a [routerLink]="['/companies', company.id]" class="text-indigo-600 hover:underline">
+                {{ company.name }}
+              </a>
+            </td>
+            <td class="px-5 py-3">
+              <a
+                [href]="company.website"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-700 hover:underline"
+                >{{ company.website }}</a
+              >
+            </td>
+            <td class="px-5 py-3 text-gray-600">{{ company.websiteDomain }}</td>
+            <td class="px-5 py-3 text-gray-500">{{ company.createdAtUtc | date: 'medium' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

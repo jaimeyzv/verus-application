@@ -1,0 +1,77 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm"
+>
+  <h2 class="mb-4 text-lg font-semibold text-gray-900">Add a company</h2>
+
+  @if (successMessage()) {
+    <div
+      class="mb-4 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800"
+      role="status"
+    >
+      {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div
+      class="mb-4 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+      role="alert"
+    >
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="mb-4">
+    <label for="name" class="mb-1 block text-sm font-medium text-gray-700">Company name</label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      autocomplete="organization"
+      placeholder="Acme Widgets"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+    />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      <p class="mt-1 text-xs text-red-600">
+        @if (form.controls.name.hasError('required')) {
+          Company name is required.
+        } @else if (form.controls.name.hasError('minlength')) {
+          Company name must contain at least 2 characters.
+        } @else {
+          Company name must not exceed 200 characters.
+        }
+      </p>
+    }
+  </div>
+
+  <div class="mb-5">
+    <label for="website" class="mb-1 block text-sm font-medium text-gray-700">Website URL</label>
+    <input
+      id="website"
+      type="url"
+      formControlName="website"
+      autocomplete="url"
+      placeholder="https://www.acmewidgets.com"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+    />
+    @if (form.controls.website.touched && form.controls.website.invalid) {
+      <p class="mt-1 text-xs text-red-600">
+        @if (form.controls.website.hasError('required')) {
+          Website URL is required.
+        } @else {
+          Enter a valid URL, e.g. https://www.acmewidgets.com
+        }
+      </p>
+    }
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="submitting()"
+    class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+  >
+    {{ submitting() ? 'Submitting…' : 'Add company' }}
+  </button>
+</form>

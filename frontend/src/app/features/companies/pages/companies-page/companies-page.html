@@ -1,0 +1,42 @@
+<section>
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">All companies</h1>
+      <p class="mt-1 text-sm text-gray-500">Every company stored by the API.</p>
+    </div>
+    <div class="flex gap-2">
+      <a
+        routerLink="/companies/search"
+        class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        >Search</a
+      >
+      <a
+        routerLink="/companies/new"
+        class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+        >+ Add company</a
+      >
+    </div>
+  </div>
+
+  @if (loadError()) {
+    <div
+      class="mb-4 flex items-center justify-between rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+      role="alert"
+    >
+      <span>{{ loadError() }}</span>
+      <button
+        type="button"
+        (click)="loadCompanies()"
+        class="rounded-md border border-red-300 px-3 py-1 text-xs font-medium hover:bg-red-100"
+      >
+        Retry
+      </button>
+    </div>
+  }
+
+  <app-company-list
+    [companies]="companies()"
+    [loading]="loading()"
+    emptyMessage="No companies yet. Use “Add company” to create the first one."
+  />
+</section>

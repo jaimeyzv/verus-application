@@ -1,0 +1,53 @@
+<section class="mx-auto max-w-xl">
+  <a routerLink="/companies" class="mb-4 inline-block text-sm text-indigo-600 hover:underline">
+    ← Back to all companies
+  </a>
+
+  @if (loading()) {
+    <p class="rounded-lg border border-gray-200 bg-white px-5 py-8 text-center text-sm text-gray-500">
+      Loading company…
+    </p>
+  } @else if (notFound()) {
+    <div class="rounded-lg border border-amber-200 bg-amber-50 px-5 py-8 text-center">
+      <h1 class="text-lg font-semibold text-amber-900">Company not found</h1>
+      <p class="mt-1 text-sm text-amber-800">
+        No company exists for this identifier. It may have been removed, or the link is incorrect.
+      </p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+      {{ errorMessage() }}
+    </div>
+  } @else if (company(); as company) {
+    <article class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <h1 class="text-2xl font-bold text-gray-900">{{ company.name }}</h1>
+
+      <dl class="mt-5 space-y-4 text-sm">
+        <div>
+          <dt class="font-medium text-gray-500">Website</dt>
+          <dd class="mt-0.5">
+            <a
+              [href]="company.website"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-indigo-600 hover:underline"
+              >{{ company.website }}</a
+            >
+          </dd>
+        </div>
+        <div>
+          <dt class="font-medium text-gray-500">Website domain</dt>
+          <dd class="mt-0.5 text-gray-900">{{ company.websiteDomain }}</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-gray-500">Identifier</dt>
+          <dd class="mt-0.5 font-mono text-xs text-gray-700">{{ company.id }}</dd>
+        </div>
+        <div>
+          <dt class="font-medium text-gray-500">Added</dt>
+          <dd class="mt-0.5 text-gray-900">{{ company.createdAtUtc | date: 'medium' }}</dd>
+        </div>
+      </dl>
+    </article>
+  }
+</section>
